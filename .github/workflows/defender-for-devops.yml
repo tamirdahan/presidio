@@ -52,3 +52,17 @@ jobs:
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: ${{ steps.msdo.outputs.sarifFile }}
+
+    - name: Mend CLI Scan
+      env:
+        MEND_EMAIL: mendscanner@ness.com
+        MEND_USER_KEY: 1578756296eb460f8ea78f775aa1c66980a4c6e981ed406691881efe16df938a
+        MEND_URL: https://saas-il.mend.io/
+            
+      run: |
+        echo Downloading Mend CLI
+        #echo "Repository Name: ${{ github.repository }}"
+        #echo "Repository Name: ${GITHUB_REPOSITORY##*/}"
+        curl https://downloads.mend.io/cli/linux_amd64/mend -o /usr/local/bin/mend && chmod +x /usr/local/bin/mend
+        echo run Mend dependencies scan
+        mend dep --update --scope "Testing//presidio"  --reachability 
