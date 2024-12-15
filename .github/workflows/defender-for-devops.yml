@@ -63,4 +63,4 @@ jobs:
         echo Downloading Mend CLI
         Invoke-WebRequest -Uri "https://downloads.mend.io/cli/windows_amd64/mend.exe" -OutFile "mend.exe"
         echo "Run Mend dependencies scan"     
-        ./mend dep --update --scope "Testing//presidio"  --reachability 
+        ./mend dep --update --scope "Testing//presidio"  --dir ${{ github.workspace }} --reachability 
